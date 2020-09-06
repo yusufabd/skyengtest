@@ -40,6 +40,7 @@ class SearchFragment : Fragment(), SearchResultsAdapter.Listener {
         editTextSearch.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 viewModel.search(editTextSearch.text.trim().toString())
+                (recyclerViewResults.adapter as? SearchResultsAdapter)?.setData(emptyList())
                 hideKeyboard()
                 return@OnEditorActionListener true
             }
@@ -51,20 +52,13 @@ class SearchFragment : Fragment(), SearchResultsAdapter.Listener {
 
     private fun observe() {
         viewModel.searchResults.observe(viewLifecycleOwner) {
-            recyclerViewResults.isVisible = true
             (recyclerViewResults.adapter as? SearchResultsAdapter)?.setData(it)
         }
         viewModel.emptyResult.observe(viewLifecycleOwner) { empty ->
-            if (empty)
-                (recyclerViewResults.adapter as? SearchResultsAdapter)?.setData(emptyList())
-
             textEmpty.isVisible = empty
         }
         viewModel.searchProgress.observe(viewLifecycleOwner) { loading ->
-            textEmpty.isVisible = false
-            if (loading)
-                recyclerViewResults.isInvisible = true
-
+            recyclerViewResults.isVisible = !loading
             progressSearch.isVisible = loading
         }
         viewModel.searchError.observe(viewLifecycleOwner) {

@@ -29,18 +29,22 @@ class SearchViewModel(
     private val _searchProgress = MutableLiveData<Boolean>()
     private val _searchError = MutableLiveData<String>()
 
+    private val searchErrorHandler = CoroutineExceptionHandler { _, throwable ->
+        _searchError.value = throwable.message
+        _searchProgress.value = false
+    }
+
     override fun onCleared() {
         super.onCleared()
         uiScope.coroutineContext.cancelChildren()
     }
 
     fun search(query: String) {
+        _emptyResult.value = false
         _searchProgress.value = true
-        val errorHandler = CoroutineExceptionHandler { _, throwable ->
-            _searchError.value = throwable.message
+
+        (uiScope + searchErrorHandler).launch {
             _searchProgress.value = false
-        }
-        (uiScope + errorHandler).launch {
             val results = interactor.searchWord(query)
             if (results.isEmpty()) {
                 _emptyResult.value = true
@@ -48,7 +52,6 @@ class SearchViewModel(
                 _emptyResult.value = false
                 _searchResults.value = results
             }
-            _searchProgress.value = false
         }
     }
 
