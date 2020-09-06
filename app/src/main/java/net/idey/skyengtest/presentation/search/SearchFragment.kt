@@ -40,7 +40,6 @@ class SearchFragment : Fragment(), SearchResultsAdapter.Listener {
         editTextSearch.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 viewModel.search(editTextSearch.text.trim().toString())
-                (recyclerViewResults.adapter as? SearchResultsAdapter)?.setData(emptyList())
                 hideKeyboard()
                 return@OnEditorActionListener true
             }

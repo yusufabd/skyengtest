@@ -53,6 +53,8 @@ class SearchViewModelTest {
                 viewModel.search(query)
 
                 assert(viewModel.searchProgress.value == true)
+                assert(viewModel.emptyResult.value == false)
+                assert(viewModel.searchResults.value != null)
             }
         }
     }

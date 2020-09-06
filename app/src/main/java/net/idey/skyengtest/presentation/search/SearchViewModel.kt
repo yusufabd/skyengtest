@@ -40,11 +40,11 @@ class SearchViewModel(
     }
 
     fun search(query: String) {
+        _searchResults.value = emptyList()
         _emptyResult.value = false
         _searchProgress.value = true
 
         (uiScope + searchErrorHandler).launch {
-            _searchProgress.value = false
             val results = interactor.searchWord(query)
             if (results.isEmpty()) {
                 _emptyResult.value = true
@@ -52,6 +52,7 @@ class SearchViewModel(
                 _emptyResult.value = false
                 _searchResults.value = results
             }
+            _searchProgress.value = false
         }
     }
 
