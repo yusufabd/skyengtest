@@ -9,4 +9,6 @@ Android test project for SkyEng
   Retrofit - для сетевых запросов
   Glide - для загрузки картинок
   Koin -  для DI
+  + Jetpack
+  + Mockito чтобы мокать объекты в тестах и mockito-kotlin для доп функций на kotlin
   
