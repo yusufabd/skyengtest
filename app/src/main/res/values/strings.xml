@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Sky Eng Test</string>
+    <string name="enter_query">Введите запрос</string>
+    <string name="nothing_found">Ничего не найдено</string>
+</resources>
