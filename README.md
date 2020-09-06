@@ -2,7 +2,8 @@
 Android test project for SkyEng
 
 Чтобы запустить проект:
-  Android Studio -> Checkout/Get from version control -> https://github.com/yusufabd/skyengtest.git
+  Android Studio -> Checkout/Get from version control -> в URL подставляем https://github.com/yusufabd/skyengtest.git и жмем Clone
+  Можно запустить проект после окончания билда
   
 Использованные библиотеки:
   Retrofit - для сетевых запросов
